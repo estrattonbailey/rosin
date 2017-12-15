@@ -1,0 +1,50 @@
+{
+  "name": "rosin",
+  "version": "0.0.1",
+  "description": "Touch detection library",
+  "main": "dist/index.js",
+  "scripts": {
+    "size": "minify dist/ | gzip-size --raw",
+    "lint": "standard 'index.js'",
+    "prebuild": "npm run lint",
+    "prepublish": "npm run build",
+    "build": "babel index.js -d dist/",
+    "watch": "babel -w index.js -d dist/",
+    "copy": "rm README.md ; cp ../README.md ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/estrattonbailey/rosin.git"
+  },
+  "author": "estrattonbailey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/estrattonbailey/rosin/issues"
+  },
+  "homepage": "https://github.com/estrattonbailey/rosin#readme",
+  "browserify": {
+    "debug": true,
+    "cache": {},
+    "packageCache": {},
+    "extension": [
+      "js"
+    ],
+    "transform": [
+      "babelify"
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.21.0",
+    "babel-eslint": "^7.2.3",
+    "babel-minify": "^0.2.0",
+    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.18.0",
+    "gzip-size-cli": "^2.0.0",
+    "standard": "^9.0.2"
+  },
+  "dependencies": {
+    "mitt": "^1.1.2"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "rosin",
+  "version": "0.0.0",
+  "description": "Touch detection library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/estrattonbailey/rosin.git"
+  },
+  "author": "estrattonbailey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/estrattonbailey/rosin/issues"
+  },
+  "homepage": "https://github.com/estrattonbailey/rosin#readme"
+}
