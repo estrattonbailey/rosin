@@ -4,29 +4,27 @@ A tiny single-finger tap, double-tap, and swipe library. **< 1kb gzipped**.
 ```javascript
 import rosin from 'rosin'
 
-const swipeable = document.getElementById('root')
+const swiper = new rosin(document.getElementById('root'))
 
-const listener = rosin(swipeable)
-
-listener.on('tap', ({ x, y }) => {})
-listener.on('doubleTap', ({ x, y }) => {})
+swiper.on('tap', ({ x, y }) => {})
+swiper.on('doubleTap', ({ x, y }) => {})
 
 /**
  * Fired on every tick
  */
-listener.on('move', ({ x, y }) => {})
-listener.on('moveLeft', ({ x, y }) => {})
-listener.on('moveRight', ({ x, y }) => {})
-listener.on('moveUp', ({ x, y }) => {})
-listener.on('moveDown', ({ x, y }) => {})
+swiper.on('move', ({ x, y }) => {})
+swiper.on('moveLeft', ({ x, y }) => {})
+swiper.on('moveRight', ({ x, y }) => {})
+swiper.on('moveUp', ({ x, y }) => {})
+swiper.on('moveDown', ({ x, y }) => {})
 
 /**
  * Fired once on each swipe
  */
-listener.on('left', () => {})
-listener.on('right', () => {})
-listener.on('up', () => {})
-listener.on('down', () => {})
+swiper.on('left', () => {})
+swiper.on('right', () => {})
+swiper.on('up', () => {})
+swiper.on('down', () => {})
 ```
 
 MIT

@@ -1,6 +1,6 @@
 {
   "name": "rosin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Touch detection library",
   "main": "dist/index.js",
   "scripts": {
