@@ -1,0 +1,33 @@
+{
+  "name": "rosin",
+  "version": "0.0.2",
+  "description": "Touch detection library",
+  "source": "index.js",
+  "module": "dist/rosin.es.js",
+  "main": "dist/rosin.js",
+  "umd:main": "dist/rosin.umd.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "microbundle build",
+    "watch": "microbundle watch",
+    "publish": "npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/estrattonbailey/rosin.git"
+  },
+  "author": "estrattonbailey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/estrattonbailey/rosin/issues"
+  },
+  "homepage": "https://github.com/estrattonbailey/rosin#readme",
+  "devDependencies": {
+    "microbundle": "^0.4.4"
+  },
+  "dependencies": {
+    "mitt": "^1.1.2"
+  }
+}
