@@ -26,8 +26,5 @@
   "homepage": "https://github.com/estrattonbailey/rosin#readme",
   "devDependencies": {
     "microbundle": "^0.4.4"
-  },
-  "dependencies": {
-    "mitt": "^1.1.2"
   }
 }
