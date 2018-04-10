@@ -10,9 +10,9 @@ export default function rosin (ctx) {
   let y1
   let x2
   let y2
-  let doubleTap = false
   let focus = false
   let timeout
+  let dragging = false
 
   const fns = {}
 
@@ -20,37 +20,30 @@ export default function rosin (ctx) {
     if (e.target === ctx || ctx.contains(e.target)) {
       focus = true
 
-      if (x2 && y2) {
-        clearTimeout(timeout)
+      emit('mousedown', null, e)
 
-        doubleTap = true
-
-        const x = pos(e)
-        const y = pos(e, 1)
-
-        if (abs(x2 - x) < 30 && abs(y2 - y) < 30) {
-          emit('doubleTap', { x, y })
-        }
-      } else {
-        x1 = pos(e)
-        y1 = pos(e, 1)
-        x2 = x1
-        y2 = y1
-      }
+      x1 = pos(e)
+      y1 = pos(e, 1)
+      x2 = x1
+      y2 = y1
     }
   }
 
   function end (e) {
-    if ((e.target === ctx || ctx.contains(e.target)) && !doubleTap) {
-      emit('tap', {
-        x: x1,
-        y: y1
-      })
+    if (e.target === ctx || ctx.contains(e.target)) {
+      emit('mouseup', null, e)
+
+      if (dragging) {
+        emit('dragEnd', null, e)
+      } else {
+        emit('tap', {
+          x: x1,
+          y: y1
+        }, e)
+      }
     }
 
     cancel()
-
-    timeout = setTimeout(cancelDoubleTap, 500)
   }
 
   function move (e) {
@@ -63,42 +56,46 @@ export default function rosin (ctx) {
 
       const payload = { x: deltaX, y: deltaY }
 
-      emit('move', payload)
+      if (travelX < 10 && travelY < 10) return
+
+      dragging = true
+
+      emit('drag', payload, e)
 
       if (deltaX > 0 && horizontal) {
-        emit('moveRight', payload)
+        emit('dragRight', payload, e)
 
         if (dir !== 'right') {
-          emit('right')
+          emit('right', null, e)
           dir = 'right'
         }
       } else if (deltaX < 0 && horizontal) {
-        emit('moveLeft', payload)
+        emit('dragLeft', payload, e)
 
         if (dir !== 'left') {
-          emit('left')
+          emit('left', null, e)
           dir = 'left'
         }
       } else if (deltaY > 0 && !horizontal) {
-        emit('moveDown', payload)
+        emit('dragDown', payload, e)
 
         if (dir !== 'down') {
-          emit('down')
+          emit('down', null, e)
           dir = 'down'
         }
       } else if (deltaY < 0 && !horizontal) {
-        emit('moveUp', payload)
+        emit('dragUp', payload, e)
 
         if (dir !== 'up') {
-          emit('up')
+          emit('up', null, e)
           dir = 'up'
         }
       }
     }
   }
 
-  function emit (type, payload) {
-    if (fns[type]) for (let i = 0; i < fns[type].length; i++) fns[type][i](payload)
+  function emit (type, payload, event) {
+    if (fns[type]) for (let i = 0; i < fns[type].length; i++) fns[type][i](payload, event)
   }
 
   function cancel () {
@@ -106,12 +103,6 @@ export default function rosin (ctx) {
     x1 = null
     y1 = null
     focus = false
-  }
-
-  function cancelDoubleTap () {
-    x2 = null
-    y2 = null
-    doubleTap = false
   }
 
   window.addEventListener('mousedown', start)
