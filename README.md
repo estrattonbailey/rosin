@@ -13,21 +13,22 @@ import rosin from 'rosin'
 
 const swiper = rosin(document.body)
 
-swiper.on('tap', ({ x, y }) => {})
-swiper.on('doubleTap', ({ x, y }) => {})
+swiper.on('tap', ({ x, y }, e) => {})
+swiper.on('mouseup', ({ x, y }, e) => {})
+swiper.on('mousedown', ({ x, y }, e) => {})
 
 /** Fired on every tick */
-swiper.on('move', ({ x, y }) => {})
-swiper.on('moveLeft', ({ x, y }) => {})
-swiper.on('moveRight', ({ x, y }) => {})
-swiper.on('moveUp', ({ x, y }) => {})
-swiper.on('moveDown', ({ x, y }) => {})
+swiper.on('drag', ({ x, y }, e) => {})
+swiper.on('dragLeft', ({ x, y }, e) => {})
+swiper.on('dragRight', ({ x, y }, e) => {})
+swiper.on('dragUp', ({ x, y }, e) => {})
+swiper.on('dragDown', ({ x, y }, e) => {})
 
 /** Fired once on each swipe */
-swiper.on('left', () => {})
-swiper.on('right', () => {})
-swiper.on('up', () => {})
-swiper.on('down', () => {})
+swiper.on('left', ({ x, y }, e) => {})
+swiper.on('right', ({ x, y }, e) => {})
+swiper.on('up', ({ x, y }, e) => {})
+swiper.on('down', ({ x, y }, e) => {})
 ```
 Each emitter also returns a function to destroy itself:
 ```javascript

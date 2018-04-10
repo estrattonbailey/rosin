@@ -6,10 +6,8 @@ function pos (e, y) {
 
 export default function rosin (ctx) {
   let dir
-  let x1
-  let y1
-  let x2
-  let y2
+  let x
+  let y
   let focus = false
   let timeout
   let dragging = false
@@ -20,26 +18,21 @@ export default function rosin (ctx) {
     if (e.target === ctx || ctx.contains(e.target)) {
       focus = true
 
-      emit('mousedown', null, e)
+      x = pos(e)
+      y = pos(e, 1)
 
-      x1 = pos(e)
-      y1 = pos(e, 1)
-      x2 = x1
-      y2 = y1
+      emit('mousedown', { x, y }, e)
     }
   }
 
   function end (e) {
     if (e.target === ctx || ctx.contains(e.target)) {
-      emit('mouseup', null, e)
+      emit('mouseup', e)
 
       if (dragging) {
-        emit('dragEnd', null, e)
+        emit('dragEnd', e)
       } else {
-        emit('tap', {
-          x: x1,
-          y: y1
-        }, e)
+        emit('tap', { x, y }, e)
       }
     }
 
@@ -48,8 +41,8 @@ export default function rosin (ctx) {
 
   function move (e) {
     if (focus) {
-      const deltaX = pos(e) - x1
-      const deltaY = pos(e, 1) - y1
+      const deltaX = pos(e) - x
+      const deltaY = pos(e, 1) - y
       const travelX = abs(deltaX)
       const travelY = abs(deltaY)
       const horizontal = travelX > travelY
@@ -66,28 +59,28 @@ export default function rosin (ctx) {
         emit('dragRight', payload, e)
 
         if (dir !== 'right') {
-          emit('right', null, e)
+          emit('right', { x, y }, e)
           dir = 'right'
         }
       } else if (deltaX < 0 && horizontal) {
         emit('dragLeft', payload, e)
 
         if (dir !== 'left') {
-          emit('left', null, e)
+          emit('left', { x, y }, e)
           dir = 'left'
         }
       } else if (deltaY > 0 && !horizontal) {
         emit('dragDown', payload, e)
 
         if (dir !== 'down') {
-          emit('down', null, e)
+          emit('down', { x, y }, e)
           dir = 'down'
         }
       } else if (deltaY < 0 && !horizontal) {
         emit('dragUp', payload, e)
 
         if (dir !== 'up') {
-          emit('up', null, e)
+          emit('up', { x, y }, e)
           dir = 'up'
         }
       }
@@ -100,8 +93,8 @@ export default function rosin (ctx) {
 
   function cancel () {
     dir = null
-    x1 = null
-    y1 = null
+    x = null
+    y = null
     focus = false
   }
 
