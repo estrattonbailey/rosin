@@ -1,6 +1,6 @@
 # rosin
-A tiny single-finger tap, double-tap, and swipe library. Works with touch and/or
-mouse events. **700 bytes gzipped.**
+A tiny single-finger tap and swipe library. Works with touch and/or mouse
+events. **700 bytes gzipped.**
 
 ## Install
 ```
