@@ -1,6 +1,6 @@
 {
   "name": "rosin",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Touch detection library",
   "source": "index.js",
   "module": "dist/rosin.es.js",
