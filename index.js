@@ -28,7 +28,7 @@ export default function rosin (ctx) {
   }
 
   function end (e) {
-    if (e.target === ctx || ctx.contains(e.target)) {
+    if (focus) {
       emit('mouseup', e)
 
       if (dragging) {
