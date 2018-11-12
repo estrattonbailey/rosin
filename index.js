@@ -16,8 +16,6 @@ export default function rosin (ctx) {
 
   function start (e) {
     if (e.target === ctx || ctx.contains(e.target)) {
-      e.preventDefault()
-
       focus = true
 
       x = pos(e)
