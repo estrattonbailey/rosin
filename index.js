@@ -41,8 +41,7 @@ export default function rosin (ctx) {
 
   function move (e) {
     if (focus) {
-      e.preventDefault()
-
+      const cancel = e.preventDefault.bind(e)
       const deltaX = pos(e) - x
       const deltaY = pos(e, 1) - y
       const travelX = abs(deltaX)
@@ -55,9 +54,13 @@ export default function rosin (ctx) {
 
       dragging = true
 
+      fns.drag && cancel()
+
       emit('drag', payload, e)
 
       if (deltaX > 0 && horizontal) {
+        fns.dragRight && cancel()
+
         emit('dragRight', payload, e)
 
         if (dir !== 'right') {
@@ -65,6 +68,8 @@ export default function rosin (ctx) {
           dir = 'right'
         }
       } else if (deltaX < 0 && horizontal) {
+        fns.dragLeft && cancel()
+
         emit('dragLeft', payload, e)
 
         if (dir !== 'left') {
@@ -72,6 +77,8 @@ export default function rosin (ctx) {
           dir = 'left'
         }
       } else if (deltaY > 0 && !horizontal) {
+        fns.dragDown && cancel()
+
         emit('dragDown', payload, e)
 
         if (dir !== 'down') {
@@ -79,6 +86,8 @@ export default function rosin (ctx) {
           dir = 'down'
         }
       } else if (deltaY < 0 && !horizontal) {
+        fns.dragUp && cancel()
+
         emit('dragUp', payload, e)
 
         if (dir !== 'up') {
