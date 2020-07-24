@@ -31,13 +31,13 @@ export default function rosin (ctx) {
       x = pos.x
       y = pos.y
 
-      emit('mousedown', { x, y }, e)
+      emit('start', { x, y }, e)
     }
   }
 
   function end (e) {
     if (focus) {
-      emit('mouseup', e)
+      emit('end', e)
 
       if (dragging) {
         emit('dragEnd', e)
