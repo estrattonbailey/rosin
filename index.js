@@ -1,7 +1,16 @@
 const abs = Math.abs
 
-function pos (e, y) {
+function coord (e, y) {
   return e.touches ? e.touches[0][y ? 'pageY' : 'pageX'] : e[y ? 'clientY' : 'clientX']
+}
+
+function coords (ctx, e) {
+  const { top, left } = ctx.getBoundingClientRect()
+
+  return {
+    x: coord(e) - left,
+    y: coord(e, 1) - top
+  }
 }
 
 export default function rosin (ctx) {
@@ -9,7 +18,6 @@ export default function rosin (ctx) {
   let x
   let y
   let focus = false
-  let timeout
   let dragging = false
 
   const fns = {}
@@ -18,8 +26,10 @@ export default function rosin (ctx) {
     if (e.target === ctx || ctx.contains(e.target)) {
       focus = true
 
-      x = pos(e)
-      y = pos(e, 1)
+      const pos = coords(ctx, e)
+
+      x = pos.x
+      y = pos.y
 
       emit('mousedown', { x, y }, e)
     }
@@ -42,15 +52,23 @@ export default function rosin (ctx) {
   function move (e) {
     if (focus) {
       const cancel = e.preventDefault.bind(e)
-      const deltaX = pos(e) - x
-      const deltaY = pos(e, 1) - y
+      const pos = coords(ctx, e)
+      const deltaX = pos.x - x
+      const deltaY = pos.y - y
       const travelX = abs(deltaX)
       const travelY = abs(deltaY)
       const horizontal = travelX > travelY
 
-      const payload = { x: deltaX, y: deltaY }
-
       if (travelX < 10 && travelY < 10) return
+
+      const payload = {
+        ix: x,
+        iy: y,
+        dx: deltaX,
+        dy: deltaY,
+        x: x + deltaX,
+        y: y + deltaY,
+      }
 
       dragging = true
 

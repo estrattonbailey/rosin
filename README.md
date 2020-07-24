@@ -1,45 +1,72 @@
 # rosin
+
 A tiny single-finger tap and swipe library. Works with touch and/or mouse
 events. **700 bytes gzipped.**
 
 ## Install
+
 ```
 npm i rosin --save
 ```
 
 # Usage
+
 ```javascript
-import rosin from 'rosin'
+import rosin from "rosin";
 
-const swiper = rosin(document.body)
+const swiper = rosin(document.body);
+```
 
-swiper.on('tap', ({ x, y }, e) => {})
-swiper.on('mouseup', ({ x, y }, e) => {})
-swiper.on('mousedown', ({ x, y }, e) => {})
+Emitted values are _relative_ to the DOM node you instantiated on.
 
-/** Fired on every tick */
-swiper.on('drag', ({ x, y }, e) => {})
-swiper.on('dragLeft', ({ x, y }, e) => {})
-swiper.on('dragRight', ({ x, y }, e) => {})
-swiper.on('dragUp', ({ x, y }, e) => {})
-swiper.on('dragDown', ({ x, y }, e) => {})
+```javascript
+swiper.on("tap", ({ x, y }, e) => {});
+swiper.on("mouseup", ({ x, y }, e) => {});
+swiper.on("mousedown", ({ x, y }, e) => {});
 
 /** Fired once on each swipe */
-swiper.on('left', ({ x, y }, e) => {})
-swiper.on('right', ({ x, y }, e) => {})
-swiper.on('up', ({ x, y }, e) => {})
-swiper.on('down', ({ x, y }, e) => {})
+swiper.on("left", ({ x, y }, e) => {});
+swiper.on("right", ({ x, y }, e) => {});
+swiper.on("up", ({ x, y }, e) => {});
+swiper.on("down", ({ x, y }, e) => {});
 ```
-Each emitter also returns a function to destroy itself:
-```javascript
-const tapListener = swiper.on('tap', () => {})
 
-tapListener() // destroy listener
+Drag events emit a different payload. It looks like this:
+
 ```
-To destroy the entire instance:
+{
+  ix, // initial X coordinate
+  iy, // initial Y coordinate
+  dx, // delta (change) in X coordinate
+  dy, // delta (change) in Y coordinate
+  x,  // current X coordinate
+  y,  // current Y coordinate
+}
+```
+
 ```javascript
-swiper.destroy()
+/** Fired on every animation frame */
+swiper.on("drag", (coords, e) => {});
+swiper.on("dragLeft", (coords, e) => {});
+swiper.on("dragRight", (coords, e) => {});
+swiper.on("dragUp", (coords, e) => {});
+swiper.on("dragDown", (coords, e) => {});
+```
+
+Each emitter also returns a function to destroy itself:
+
+```javascript
+const tapListener = swiper.on("tap", () => {});
+
+tapListener(); // destroy listener
+```
+
+To destroy the entire instance:
+
+```javascript
+swiper.destroy();
 ```
 
 ## License
+
 MIT License © [Eric Bailey](https://estrattonbailey.com)
