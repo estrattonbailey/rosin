@@ -1,0 +1,27 @@
+@import 'svbstrate/src/lib/reset';
+@import 'svbstrate/src/lib/display';
+@import 'svbstrate/src/lib/positioning';
+@import 'svbstrate/src/lib/flexbox';
+@import 'svbstrate/src/lib/align';
+@import 'svbstrate/src/lib/spacing';
+@import 'svbstrate/src/lib/buttons';
+@import 'svbstrate/src/lib/forms';
+@import 'svbstrate/src/lib/lists';
+@import 'svbstrate/src/lib/typography';
+@import 'svbstrate/src/lib/z-index';
+
+body {
+  height: 80vh;
+}
+
+#root {
+  width: 50vh;
+  height: 50vh;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: tomato;
+}
