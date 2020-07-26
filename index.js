@@ -5,11 +5,15 @@ function coord (e, y) {
 }
 
 function coords (ctx, e) {
-  const { top, left } = ctx.getBoundingClientRect()
+  const { top, bottom, left, right } = ctx.getBoundingClientRect()
+  const x = coord(e) - left
+  const y = coord(e, 1) - top
 
   return {
-    x: coord(e) - left,
-    y: coord(e, 1) - top
+    x,
+    y,
+    px: x / (right - left),
+    py: y / (bottom - top)
   }
 }
 
@@ -62,6 +66,8 @@ export default function rosin (ctx) {
       if (travelX < 10 && travelY < 10) return
 
       const payload = {
+        px: pos.px,
+        py: pos.py,
         ix: x,
         iy: y,
         dx: deltaX,
