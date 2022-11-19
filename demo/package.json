@@ -33,7 +33,7 @@
     "postcss-nested": "^2.0.2",
     "standard": "^10.0.2",
     "standard-loader": "^6.0.1",
-    "webpack": "^2.6.1",
+    "webpack": "^5.75.0",
     "webpack-dev-server": "^2.11.5"
   },
   "dependencies": {
